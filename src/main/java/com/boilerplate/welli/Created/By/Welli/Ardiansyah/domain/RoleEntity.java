@@ -1,6 +1,7 @@
 package com.boilerplate.welli.Created.By.Welli.Ardiansyah.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +13,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static jakarta.persistence.TemporalType.TIMESTAMP;
 
@@ -36,9 +34,9 @@ public class RoleEntity {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "role_permissions",
+            name = "w_role_permissions",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
@@ -46,7 +44,7 @@ public class RoleEntity {
 
     @CreatedBy
     @Column(updatable = false)
-    private UUID createdBy;
+    private String createdBy;
 
     @CreationTimestamp
     @Temporal(TIMESTAMP)
@@ -55,7 +53,7 @@ public class RoleEntity {
     private Date createdDate;
 
     @LastModifiedBy
-    private UUID updatedBy;
+    private String updatedBy;
 
     @UpdateTimestamp
     @Temporal(TIMESTAMP)

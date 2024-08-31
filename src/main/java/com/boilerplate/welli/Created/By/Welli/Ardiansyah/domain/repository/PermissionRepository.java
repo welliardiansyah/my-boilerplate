@@ -1,6 +1,7 @@
 package com.boilerplate.welli.Created.By.Welli.Ardiansyah.domain.repository;
 
 import com.boilerplate.welli.Created.By.Welli.Ardiansyah.domain.PermissionEntity;
+import com.boilerplate.welli.Created.By.Welli.Ardiansyah.domain.RoleEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

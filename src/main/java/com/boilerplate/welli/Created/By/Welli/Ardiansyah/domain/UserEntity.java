@@ -12,10 +12,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static jakarta.persistence.TemporalType.TIMESTAMP;
 
@@ -43,9 +40,9 @@ public class UserEntity {
 
     @CreatedBy
     @Column(updatable = false)
-    private UUID createdBy;
+    private String createdBy;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -60,7 +57,7 @@ public class UserEntity {
     private Date createdDate;
 
     @LastModifiedBy
-    private UUID updatedBy;
+    private String updatedBy;
 
     @UpdateTimestamp
     @Temporal(TIMESTAMP)

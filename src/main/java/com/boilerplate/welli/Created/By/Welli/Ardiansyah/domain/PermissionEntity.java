@@ -36,9 +36,9 @@ public class PermissionEntity {
 
     private int sequence;
 
-    @CreatedBy
-    @Column(updatable = false)
-    private UUID createdBy;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "created_by")
+    private UserEntity createdBy;
 
     @CreationTimestamp
     @Temporal(TIMESTAMP)
@@ -46,8 +46,9 @@ public class PermissionEntity {
     @Column(updatable = false)
     private Date createdDate;
 
-    @LastModifiedBy
-    private UUID updatedBy;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "updated_by")
+    private UserEntity updatedBy;
 
     @UpdateTimestamp
     @Temporal(TIMESTAMP)

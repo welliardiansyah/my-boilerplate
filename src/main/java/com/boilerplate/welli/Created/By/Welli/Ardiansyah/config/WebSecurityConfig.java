@@ -6,6 +6,7 @@ import com.boilerplate.welli.Created.By.Welli.Ardiansyah.config.jwt.service.User
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -16,9 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import static org.springframework.http.HttpMethod.*;
-import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -30,16 +28,6 @@ public class WebSecurityConfig {
             "/api/v1/auth/**",
             "/api/v1/role/**",
             "/api/v1/permission/**",
-            "/api/v1/nidi/upload/**",
-            "/api/v1/bank/**",
-            "/api/v1/disbursement/**",
-            "/api/v1/banger/**",
-            "/api/v1/mitra/**",
-            "/api/v1/periode/**",
-            "/api/v1/sanggah/**",
-            "/api/v1/margin/**",
-            "/api/v1/vd/**",
-            "/api/v1/ba-rekon/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -49,7 +37,8 @@ public class WebSecurityConfig {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "/error/**",
     };
 
     private final UserDetailsServiceImpl userDetailsService;
@@ -81,18 +70,10 @@ public class WebSecurityConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(WHITE_LIST_URL).permitAll()
-                                .requestMatchers(GET, "/api/v1/auth/**").hasAuthority("ADMIN")
-                                .requestMatchers(POST, "/api/v1/auth/**").hasAuthority("ADMIN")
-                                .requestMatchers(PUT, "/api/v1/auth/**").hasAuthority("ADMIN")
-                                .requestMatchers(DELETE, "/api/v1/auth/**").hasAuthority("ADMIN")
-                                .requestMatchers(GET, "/api/v1/role/**").hasAuthority("ADMIN")
-                                .requestMatchers(POST, "/api/v1/role/**").hasAuthority("ADMIN")
-                                .requestMatchers(PUT, "/api/v1/role/**").hasAuthority("ADMIN")
-                                .requestMatchers(DELETE, "/api/v1/role/**").hasAuthority("ADMIN")
-                                .requestMatchers(GET, "/api/v1/permission/**").hasAuthority("ADMIN")
-                                .requestMatchers(POST, "/api/v1/permission/**").hasAuthority("ADMIN")
-                                .requestMatchers(PUT, "/api/v1/permission/**").hasAuthority("ADMIN")
-                                .requestMatchers(DELETE, "/api/v1/permission/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/resource/**").hasAuthority("CREAT")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/resource/**").hasAuthority("UPDATE")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/resource/**").hasAuthority("READ")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/resource/**").hasAuthority("DELETE")
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
