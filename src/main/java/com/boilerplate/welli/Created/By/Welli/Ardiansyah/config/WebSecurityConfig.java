@@ -70,7 +70,7 @@ public class WebSecurityConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(WHITE_LIST_URL).permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/v1/resource/**").hasAuthority("CREAT")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/resource/**").hasAuthority("CREATE")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/resource/**").hasAuthority("UPDATE")
                                 .requestMatchers(HttpMethod.GET, "/api/v1/resource/**").hasAuthority("READ")
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/resource/**").hasAuthority("DELETE")

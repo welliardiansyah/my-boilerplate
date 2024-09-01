@@ -16,31 +16,31 @@ public class PermissionController {
     private final PermissionService service;
 
     @PostMapping("/create")
-//    @PreAuthorize("hasAnyAuthority('CREATE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> createPermission(@RequestBody PermissionDto permissionDto) {
         return service.create(permissionDto);
     }
 
     @PutMapping("/update/{id}")
-//    @PreAuthorize("hasAnyAuthority('UPDATE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> updatePermission(@PathVariable UUID id, @RequestBody PermissionDto permissionDto) {
         return service.update(id, permissionDto);
     }
 
     @DeleteMapping("/delete/{id}")
-//    @PreAuthorize("hasAnyAuthority('DELETE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> deletePermission(@PathVariable UUID id) {
         return service.delete(id);
     }
 
     @GetMapping("/{id}")
-//    @PreAuthorize("hasAnyAuthority('READ', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> getPermissionById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @GetMapping("/paging")
-//    @PreAuthorize("hasAnyAuthority('READ', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> getAllPermissions(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "sequence", required = false) Integer sequence,

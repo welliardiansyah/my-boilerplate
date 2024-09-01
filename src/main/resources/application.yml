@@ -16,6 +16,6 @@ spring:
 
 boilerplate:
   app:
-    jwtSecret: =======================Listriku=Spring===========================
+    jwtSecret: =======================Boilerplate=v1=Spring===========================
     jwtExpirationMs: 86400000
-    jwtCookieName: Listriku
+    jwtCookieName: Boilerplate_by_welli

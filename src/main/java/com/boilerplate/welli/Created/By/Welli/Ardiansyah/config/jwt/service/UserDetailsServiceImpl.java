@@ -1,7 +1,7 @@
 package com.boilerplate.welli.Created.By.Welli.Ardiansyah.config.jwt.service;
 
 import com.boilerplate.welli.Created.By.Welli.Ardiansyah.domain.UserEntity;
-import com.boilerplate.welli.Created.By.Welli.Ardiansyah.domain.repository.UserRepository;
+import com.boilerplate.welli.Created.By.Welli.Ardiansyah.domain.repository.AuthRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final AuthRepository userRepository;
 
     @Override
     @Transactional
