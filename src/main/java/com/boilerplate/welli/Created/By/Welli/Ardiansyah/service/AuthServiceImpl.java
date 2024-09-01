@@ -196,6 +196,32 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> delete(UUID id) {
+        try {
+            Optional<?> findExist = repository.findById(id);
+            if (findExist.isEmpty()) {
+                return ResponseHandler.errorResponseBuilder(
+                        "User data UUID" + id + "cannot be found!",
+                        HttpStatus.NOT_FOUND
+                );
+            }
+            UserEntity users = (UserEntity) findExist.get();
+            repository.delete(users);
+
+            return ResponseHandler.successResponseBuilder(
+                    "Permission deleted successfully!",
+                    HttpStatus.OK,
+                    users
+            );
+        } catch (Exception e) {
+            return ResponseHandler.errorResponseBuilder(
+                    "Failed to delete user account" + e.getMessage(),
+                    HttpStatus.BAD_GATEWAY
+            );
+        }
+    }
+
     public boolean isTruePassword(UUID userId, String oldPassword) {
         Optional<UserEntity> check = repository.findById(userId);
         if (check.isPresent()) {

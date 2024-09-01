@@ -16,31 +16,31 @@ public class RoleController {
     private final RoleService service;
 
     @PostMapping("/create")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('CREATE')")
     public ResponseEntity<?> created(@RequestBody RoleDto data) {
         return service.create(data);
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<?> updated(@PathVariable("id") UUID id, @RequestBody RoleDto data) {
         return service.update(id, data);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<?> deleted(@PathVariable("id") UUID id) {
         return service.delete(id);
     }
 
     @GetMapping("/details/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> detail(@PathVariable("id") UUID id) {
         return service.details(id);
     }
 
     @GetMapping("/paging")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> paging(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int pageSize,

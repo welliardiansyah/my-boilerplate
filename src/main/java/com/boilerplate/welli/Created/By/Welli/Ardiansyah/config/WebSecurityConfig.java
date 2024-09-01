@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -24,10 +25,9 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
-            "/api/v1/role/**",
-            "/api/v1/permission/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -70,10 +70,18 @@ public class WebSecurityConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(WHITE_LIST_URL).permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/v1/resource/**").hasAuthority("CREATE")
-                                .requestMatchers(HttpMethod.PUT, "/api/v1/resource/**").hasAuthority("UPDATE")
-                                .requestMatchers(HttpMethod.GET, "/api/v1/resource/**").hasAuthority("READ")
-                                .requestMatchers(HttpMethod.DELETE, "/api/v1/resource/**").hasAuthority("DELETE")
+                                // Permission Endpoints
+                                .requestMatchers(HttpMethod.POST, "/api/v1/permission/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/permission/**").hasAnyAuthority("ADMIN", "REPORT")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/permission/**").hasAnyAuthority("ADMIN", "REPORT")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/permission/**").hasAnyAuthority("ADMIN")
+                                // Role Endpoints
+                                .requestMatchers(HttpMethod.POST, "/api/v1/role/**").hasAnyAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/role/**").hasAnyAuthority("ADMIN", "REPORT")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/role/**").hasAnyAuthority("ADMIN", "REPORT")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/role/**").hasAnyAuthority("ADMIN")
+                                // Auth Endpoints
+                                .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").hasAnyAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)

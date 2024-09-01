@@ -12,4 +12,5 @@ public interface AuthService {
     ResponseEntity<?> login(LoginDto data);
     ResponseEntity<?> profile();
     ResponseEntity<?> changePassword(UUID id, ChangePasswordDto data);
+    ResponseEntity<?> delete(UUID id);
 }

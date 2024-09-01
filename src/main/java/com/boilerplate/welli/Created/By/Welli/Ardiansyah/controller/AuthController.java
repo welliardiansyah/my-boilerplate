@@ -25,7 +25,7 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/created")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('CREATE')")
     public ResponseEntity<?> created(HttpServletRequest request, @RequestBody @Valid RegisterDto data) {
         return service.register(data);
     }
@@ -54,5 +54,10 @@ public class AuthController {
     @PutMapping("/password/{id}")
     public ResponseEntity<?> changePassword(@PathVariable("id") UUID id, @RequestBody @Valid ChangePasswordDto data) {
         return service.changePassword(id, data);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete() {
+        return service.profile();
     }
 }

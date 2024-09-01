@@ -111,7 +111,6 @@ public class RoleServiceImpl implements RoleService {
                 );
             }
             RoleEntity delRole = permissionOptional.get();
-//            repository.findAll().forEach(role -> role.getPermissions().remove(delRole));
             repository.delete(delRole);
 
             return ResponseHandler.successResponseBuilder(
