@@ -57,7 +57,7 @@ public class AuthController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete() {
-        return service.profile();
+    public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
+        return service.delete(id);
     }
 }

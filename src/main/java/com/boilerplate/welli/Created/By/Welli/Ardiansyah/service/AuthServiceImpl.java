@@ -210,7 +210,7 @@ public class AuthServiceImpl implements AuthService {
             repository.delete(users);
 
             return ResponseHandler.successResponseBuilder(
-                    "Permission deleted successfully!",
+                    "Delete user account successfully!",
                     HttpStatus.OK,
                     users
             );
